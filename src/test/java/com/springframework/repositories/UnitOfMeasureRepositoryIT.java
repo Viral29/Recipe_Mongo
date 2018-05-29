@@ -2,6 +2,9 @@ package com.springframework.repositories;
 
 import com.springframework.bootstrap.RecipeBootstrap;
 import com.springframework.domain.UnitOfMeasure;
+import com.springframework.repositories.reactive.CategoryReactiveRepository;
+import com.springframework.repositories.reactive.RecipeReactiveRepository;
+import com.springframework.repositories.reactive.UnitOfMeasureReactiveRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,6 +31,15 @@ public class UnitOfMeasureRepositoryIT {
 
     @Autowired
     RecipeRepository recipeRepository;
+
+    @Autowired
+    UnitOfMeasureReactiveRepository unitOfMeasureReactiveRepository;
+
+    @Autowired
+    CategoryReactiveRepository categoryReactiveRepository;
+
+    @Autowired
+    RecipeReactiveRepository recipeReactiveRepository;
 
     @Before
     public void setUp() throws Exception {
