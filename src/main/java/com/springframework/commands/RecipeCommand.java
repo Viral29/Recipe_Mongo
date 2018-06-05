@@ -10,10 +10,7 @@ import org.hibernate.validator.constraints.URL;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by jt on 6/21/17.
@@ -22,7 +19,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor
 public class RecipeCommand {
-    private String id;
+    private String id=UUID.randomUUID().toString();
 
     @NotBlank
     @Size(min = 3, max = 255)

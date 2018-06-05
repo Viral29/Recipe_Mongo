@@ -11,6 +11,8 @@ import org.springframework.data.mongodb.repository.config.EnableReactiveMongoRep
 import javax.annotation.Generated;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.UUID;
+
 @Getter
 @Setter
 @Document
@@ -18,7 +20,7 @@ import java.util.Set;
 //@EnableReactiveMongoRepositories
 public class Recipe {
     @Id
-    private String id;
+    private String id = UUID.randomUUID().toString();
     private String description;
     private Integer prepTime;
     private Integer cookTime;
