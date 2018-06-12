@@ -48,9 +48,7 @@ public class IngredientServiceImpl implements IngredientService {
                     ingredientCommand.setRecipeId(recipeId);
                     return ingredientCommand;
                 });
-
-
-    }
+}
 
     @Override
     public Mono<IngredientCommand> saveIngredientCommand(IngredientCommand command) {
@@ -82,10 +80,14 @@ public class IngredientServiceImpl implements IngredientService {
                 }
             } else {
                 //add new Ingredient
-                UnitOfMeasure uom = unitOfMeasureReactiveRepository.findById(command.getUom().getId()).block();
-                Ingredient ingredient = ingredientCommandToIngredient.convert(command);
-                ingredient.setUom(uom);
-                recipe.addIngredient(ingredient);
+                if (command.getUom() == null) {
+                    new RuntimeException("UOM NOT FOUND");
+                }
+                else {
+                    Ingredient ingredient = ingredientCommandToIngredient.convert(command);
+                    ingredient.setUom(unitOfMeasureReactiveRepository.findById(command.getUom().getId()).block());
+                    recipe.addIngredient(ingredient);
+                }
             }
 
             Recipe savedRecipe = recipeReactiveRepository.save(recipe).block();
