@@ -1,10 +1,12 @@
 package com.springframework.services;
 
 import com.springframework.commands.IngredientCommand;
+import com.springframework.commands.UnitOfMeasureCommand;
 import com.springframework.converters.IngredientCommandToIngredient;
 import com.springframework.converters.IngredientToIngredientCommand;
 import com.springframework.domain.Ingredient;
 import com.springframework.domain.Recipe;
+import com.springframework.domain.UnitOfMeasure;
 import com.springframework.repositories.RecipeRepository;
 import com.springframework.repositories.reactive.RecipeReactiveRepository;
 import com.springframework.repositories.reactive.UnitOfMeasureReactiveRepository;
@@ -80,7 +82,9 @@ public class IngredientServiceImpl implements IngredientService {
                 }
             } else {
                 //add new Ingredient
+                UnitOfMeasure uom = unitOfMeasureReactiveRepository.findById(command.getUom().getId()).block();
                 Ingredient ingredient = ingredientCommandToIngredient.convert(command);
+                ingredient.setUom(uom);
                 recipe.addIngredient(ingredient);
             }
 
