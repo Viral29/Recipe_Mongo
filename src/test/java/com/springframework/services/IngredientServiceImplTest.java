@@ -8,6 +8,7 @@ import com.springframework.converters.UnitOfMeasureCommandToUnitOfMeasure;
 import com.springframework.converters.UnitOfMeasureToUnitOfMeasureCommand;
 import com.springframework.domain.Ingredient;
 import com.springframework.domain.Recipe;
+import com.springframework.domain.UnitOfMeasure;
 import com.springframework.repositories.RecipeRepository;
 import com.springframework.repositories.UnitOfMeasureRepository;
 import com.springframework.repositories.reactive.RecipeReactiveRepository;
@@ -96,6 +97,7 @@ public class IngredientServiceImplTest {
         command.setRecipeId("2");
         command.setUom(new UnitOfMeasureCommand());
         command.getUom().setId("1234");
+        command.getUom().setDescription("xyz");
 
         Recipe savedRecipe = new Recipe();
         savedRecipe.addIngredient(new Ingredient());
@@ -103,6 +105,7 @@ public class IngredientServiceImplTest {
 
         when(recipeReactiveRepository.findById(anyString())).thenReturn(Mono.just(new Recipe()));
         when(recipeReactiveRepository.save(any())).thenReturn(Mono.just(savedRecipe));
+        when(unitOfMeasureReactiveRepository.findById(anyString())).thenReturn(Mono.just(new UnitOfMeasure()));
 
         //when
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command).block();
